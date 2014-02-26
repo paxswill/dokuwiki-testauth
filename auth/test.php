@@ -42,8 +42,18 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
      * @return  bool
      */
     public function checkPass($user, $pass) {
-        // FIXME implement password check
-        return false; // return true if okay
+        // TODO Report why things failed
+        $hashed_password = hash('sha1', $pass);
+        $params = array(
+            'user' => $user,
+            'pass' => $hashed_password
+        );
+        $response = $this->testAuthAPI('login', $params);
+        if ($response['auth'] != 'ok') {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**

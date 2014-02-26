@@ -1,0 +1,7 @@
+base	testauth
+author	Will Ross
+email	paxswill@paxswill.com
+date	2014-02-26
+name	TEST Auth Integration
+desc	Authentication plugin that interfaces with TEST Alliance's Auth system.
+url		https://pleaseignore.com

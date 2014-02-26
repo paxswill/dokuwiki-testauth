@@ -7,6 +7,7 @@
 
 // keys need to match the config setting name
 // $lang['fixme'] = 'FIXME';
+$lang['apikey'] = 'TEST Auth Third Party API Key';
 
 
 

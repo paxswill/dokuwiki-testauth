@@ -18,19 +18,22 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
     public function __construct() {
         parent::__construct(); // for compatibility
 
-        $this->cando['getGroups']   = false; // can a list of available groups be retrieved?
-        //$this->cando['external']    = false; // does the module do external auth checking?
-        //$this->cando['logout']      = true; // can the user logout again? (eg. not possible with HTTP auth)
+        $this->cando['addUser']      = false;
+        $this->cando['delUser']      = false;
+        $this->cando['modLogin']     = false;
+        $this->cando['modPass']      = false;
+        $this->cando['modName']      = false;
+        $this->cando['modMail']      = false;
+        $this->cando['modGroups']    = false;
+        $this->cando['getUsers']     = false;
+        $this->cando['getUserCount'] = false;
+        $this->cando['getGroups']    = false;
+        $this->cando['external']     = false;
+        $this->cando['logout']       = true;
 
-        // FIXME intialize your auth system and set success to true, if successful
         $this->success = true;
     }
 
-    /**
-     * Log off the current user [ OPTIONAL ]
-     */
-    //public function logOff() {
-    //}
 
     /**
      * Check user+password
@@ -90,20 +93,6 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
     }
 
     /**
-     * Retrieve groups [implement only where required/possible]
-     *
-     * Set getGroups capability when implemented
-     *
-     * @param   int $start
-     * @param   int $limit
-     * @return  array
-     */
-    //public function retrieveGroups($start = 0, $limit = 0) {
-        // FIXME implement
-    //    return array();
-    //}
-
-    /**
      * Return case sensitivity of the backend
      *
      * When your backend is caseinsensitive (eg. you can login with USER and
@@ -112,6 +101,7 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
      * @return bool
      */
     public function isCaseSensitive() {
+        // TODO double check that this is the case
         return true;
     }
 
@@ -146,36 +136,9 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
      * @return string the cleaned groupname
      */
     public function cleanGroup($group) {
+        $group = preg_replace('[\s]', '_', $group);
         return $group;
     }
-
-    /**
-     * Check Session Cache validity [implement only where required/possible]
-     *
-     * DokuWiki caches user info in the user's session for the timespan defined
-     * in $conf['auth_security_timeout'].
-     *
-     * This makes sure slow authentication backends do not slow down DokuWiki.
-     * This also means that changes to the user database will not be reflected
-     * on currently logged in users.
-     *
-     * To accommodate for this, the user manager plugin will touch a reference
-     * file whenever a change is submitted. This function compares the filetime
-     * of this reference file with the time stored in the session.
-     *
-     * This reference file mechanism does not reflect changes done directly in
-     * the backend's database through other means than the user manager plugin.
-     *
-     * Fast backends might want to return always false, to force rechecks on
-     * each page load. Others might want to use their own checking here. If
-     * unsure, do not override.
-     *
-     * @param  string $user - The username
-     * @return bool
-     */
-    //public function useSessionCache($user) {
-      // FIXME implement
-    //}
 
     /**
      * Query the Auth API

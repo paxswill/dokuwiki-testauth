@@ -18,8 +18,6 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
     public function __construct() {
         parent::__construct(); // for compatibility
 
-        //$this->cando['getUsers']    = false; // can a (filtered) list of users be retrieved?
-        //$this->cando['getUserCount']= false; // can the number of users be retrieved?
         $this->cando['getGroups']   = false; // can a list of available groups be retrieved?
         //$this->cando['external']    = false; // does the module do external auth checking?
         //$this->cando['logout']      = true; // can the user logout again? (eg. not possible with HTTP auth)
@@ -65,35 +63,6 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
         // FIXME implement
         return false;
     }
-
-    /**
-     * Bulk retrieval of user data [implement only where required/possible]
-     *
-     * Set getUsers capability when implemented
-     *
-     * @param   int   $start     index of first user to be returned
-     * @param   int   $limit     max number of users to be returned
-     * @param   array $filter    array of field/pattern pairs, null for no filter
-     * @return  array list of userinfo (refer getUserData for internal userinfo details)
-     */
-    //public function retrieveUsers($start = 0, $limit = -1, $filter = null) {
-        // FIXME implement
-    //    return array();
-    //}
-
-    /**
-     * Return a count of the number of user which meet $filter criteria
-     * [should be implemented whenever retrieveUsers is implemented]
-     *
-     * Set getUserCount capability when implemented
-     *
-     * @param  array $filter array of field/pattern pairs, empty array for no filter
-     * @return int
-     */
-    //public function getUserCount($filter = array()) {
-        // FIXME implement
-    //    return 0;
-    //}
 
     /**
      * Retrieve groups [implement only where required/possible]

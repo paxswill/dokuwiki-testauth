@@ -5,4 +5,4 @@
  * @author Will Ross <paxswill@paxswill.com>
  */
 
-//$conf['fixme']    = 'FIXME';
+$conf['apikey'] = '';

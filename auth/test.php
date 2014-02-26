@@ -70,8 +70,23 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
      * @return  array containing user data or false
      */
     public function getUserData($user) {
-        // FIXME implement
-        return false;
+        $params = array(
+            'apikey' => $this->getConf('apikey'),
+            'user' => $user
+        );
+        // FIXME response validity isn't checked
+        $response = $this->testAuthAPI('user', $params);
+        $user_data = array();
+        // FIXME Figure out how to get the primary character name without using
+        // the login endpoint
+        $user_data['name'] = $response['username'];
+        $user_data['mail'] = $response['email'];
+        $groups = array();
+        foreach ($response['groups'] as $group) {
+            $groups[] = $group['name'];
+        }
+        $user_data['groups'] = $groups;
+        return $user_data;
     }
 
     /**

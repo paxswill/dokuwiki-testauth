@@ -182,6 +182,56 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
     //public function useSessionCache($user) {
       // FIXME implement
     //}
+
+    /**
+     * Query the Auth API
+     *
+     * Queries the Auth API using the given endpoint with the given paramters.
+     *
+     * @param string $method - The endpoint to query
+     * @param array $params - An associative array of the parameters
+     * @return array
+     *
+     */
+    private testAuthAPI($method, $params=array()) {
+        // Check that it's a valid endpoint
+        static $methods = array(
+            'anm',
+            'announce',
+            'authchar',
+            'blacklist',
+            'character',
+            'edkapi',
+            'eveapi',
+            'group',
+            'group',
+            'info',
+            'login',
+            'optimer',
+            'user',
+        );
+        if (!in_array($method, $methods)) {
+            return false;
+        }
+        // Build the query string+URL
+        $url = "https://auth.pleaseignore.com/api/1.0/${method}";
+        $query_string = http_build_query($params, '', '&', PHP_QUERY_RFC3986);
+        if ($query_string != '') {
+            $url = $url . '?' . $query_string
+        }
+        // Process the request
+        $http_client = new DokuHTTPClient();
+        $json_response = $http_client->get($url);
+        if ($json_response == false) {
+            curl_close($curl);
+            return false;
+        }
+        curl_close($curl);
+        // the API returns JSON, so pre-process it
+        $json = new JSON();
+        $response = $json->decode($json_response, true);
+        return $response;
+    }
 }
 
 // vim:ts=4:sts=4:sw=4:et:

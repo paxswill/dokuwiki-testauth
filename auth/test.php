@@ -18,17 +18,9 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
     public function __construct() {
         parent::__construct(); // for compatibility
 
-        // FIXME set capabilities accordingly
-        //$this->cando['addUser']     = false; // can Users be created?
-        //$this->cando['delUser']     = false; // can Users be deleted?
-        //$this->cando['modLogin']    = false; // can login names be changed?
-        //$this->cando['modPass']     = false; // can passwords be changed?
-        //$this->cando['modName']     = false; // can real names be changed?
-        //$this->cando['modMail']     = false; // can emails be changed?
-        //$this->cando['modGroups']   = false; // can groups be changed?
         //$this->cando['getUsers']    = false; // can a (filtered) list of users be retrieved?
         //$this->cando['getUserCount']= false; // can the number of users be retrieved?
-        //$this->cando['getGroups']   = false; // can a list of available groups be retrieved?
+        $this->cando['getGroups']   = false; // can a list of available groups be retrieved?
         //$this->cando['external']    = false; // does the module do external auth checking?
         //$this->cando['logout']      = true; // can the user logout again? (eg. not possible with HTTP auth)
 
@@ -36,41 +28,10 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
         $this->success = true;
     }
 
-
     /**
      * Log off the current user [ OPTIONAL ]
      */
     //public function logOff() {
-    //}
-
-    /**
-     * Do all authentication [ OPTIONAL ]
-     *
-     * @param   string  $user    Username
-     * @param   string  $pass    Cleartext Password
-     * @param   bool    $sticky  Cookie should not expire
-     * @return  bool             true on successful auth
-     */
-    //public function trustExternal($user, $pass, $sticky = false) {
-        /* some example:
-
-        global $USERINFO;
-        global $conf;
-        $sticky ? $sticky = true : $sticky = false; //sanity check
-
-        // do the checking here
-
-        // set the globals if authed
-        $USERINFO['name'] = 'FIXME';
-        $USERINFO['mail'] = 'FIXME';
-        $USERINFO['grps'] = array('FIXME');
-        $_SERVER['REMOTE_USER'] = $user;
-        $_SESSION[DOKU_COOKIE]['auth']['user'] = $user;
-        $_SESSION[DOKU_COOKIE]['auth']['pass'] = $pass;
-        $_SESSION[DOKU_COOKIE]['auth']['info'] = $USERINFO;
-        return true;
-
-        */
     //}
 
     /**
@@ -106,56 +67,6 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
     }
 
     /**
-     * Create a new User [implement only where required/possible]
-     *
-     * Returns false if the user already exists, null when an error
-     * occurred and true if everything went well.
-     *
-     * The new user HAS TO be added to the default group by this
-     * function!
-     *
-     * Set addUser capability when implemented
-     *
-     * @param  string     $user
-     * @param  string     $pass
-     * @param  string     $name
-     * @param  string     $mail
-     * @param  null|array $grps
-     * @return bool|null
-     */
-    //public function createUser($user, $pass, $name, $mail, $grps = null) {
-        // FIXME implement
-    //    return null;
-    //}
-
-    /**
-     * Modify user data [implement only where required/possible]
-     *
-     * Set the mod* capabilities according to the implemented features
-     *
-     * @param   string $user    nick of the user to be changed
-     * @param   array  $changes array of field/value pairs to be changed (password will be clear text)
-     * @return  bool
-     */
-    //public function modifyUser($user, $changes) {
-        // FIXME implement
-    //    return false;
-    //}
-
-    /**
-     * Delete one or more users [implement only where required/possible]
-     *
-     * Set delUser capability when implemented
-     *
-     * @param   array  $users
-     * @return  int    number of users deleted
-     */
-    //public function deleteUsers($users) {
-        // FIXME implement
-    //    return false;
-    //}
-
-    /**
      * Bulk retrieval of user data [implement only where required/possible]
      *
      * Set getUsers capability when implemented
@@ -182,19 +93,6 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
     //public function getUserCount($filter = array()) {
         // FIXME implement
     //    return 0;
-    //}
-
-    /**
-     * Define a group [implement only where required/possible]
-     *
-     * Set addGroup capability when implemented
-     *
-     * @param   string $group
-     * @return  bool
-     */
-    //public function addGroup($group) {
-        // FIXME implement
-    //    return false;
     //}
 
     /**

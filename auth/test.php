@@ -172,13 +172,9 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
         }
         // Build the query string+URL
         $url = "https://auth.pleaseignore.com/api/1.0/${method}";
-        $query_string = http_build_query($params, '', '&', PHP_QUERY_RFC3986);
-        if ($query_string != '') {
-            $url = $url . '?' . $query_string
-        }
         // Process the request
         $http_client = new DokuHTTPClient();
-        $json_response = $http_client->get($url);
+        $json_response = $http_client->dget($url, $params);
         if ($json_response == false) {
             return false;
         }

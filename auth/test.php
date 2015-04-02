@@ -52,7 +52,6 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
             'pass' => $hashed_password
         );
         $response = $this->testAuthAPI('login', $params);
-        print_r($response);
         if ($response->auth != 'ok') {
             return false;
         } else {

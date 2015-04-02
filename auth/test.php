@@ -180,10 +180,8 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
         $http_client = new DokuHTTPClient();
         $json_response = $http_client->get($url);
         if ($json_response == false) {
-            curl_close($curl);
             return false;
         }
-        curl_close($curl);
         // the API returns JSON, so pre-process it
         $json = new JSON();
         $response = $json->decode($json_response, true);

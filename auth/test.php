@@ -180,7 +180,7 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
         }
         // the API returns JSON, so pre-process it
         $json = new JSON();
-        $response = $json->decode($json_response, true);
+        $response = $json->decode($json_response);
         return $response;
     }
 }

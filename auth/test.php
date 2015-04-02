@@ -52,7 +52,8 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
             'pass' => $hashed_password
         );
         $response = $this->testAuthAPI('login', $params);
-        if ($response['auth'] != 'ok') {
+        print_r($response);
+        if ($response->auth != 'ok') {
             return false;
         } else {
             return true;
@@ -82,11 +83,11 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
         $user_data = array();
         // FIXME Figure out how to get the primary character name without using
         // the login endpoint
-        $user_data['name'] = $response['username'];
-        $user_data['mail'] = $response['email'];
+        $user_data['name'] = $response->username;
+        $user_data['mail'] = $response->email;
         $groups = array();
-        foreach ($response['groups'] as $group) {
-            $groups[] = $group['name'];
+        foreach ($response->groups as $group) {
+            $groups[] = $group->name;
         }
         $user_data['groups'] = $groups;
         return $user_data;

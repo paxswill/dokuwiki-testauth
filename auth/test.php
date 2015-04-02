@@ -150,7 +150,7 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
      * @return array
      *
      */
-    private testAuthAPI($method, $params=array()) {
+    private function testAuthAPI($method, $params=array()) {
         // Check that it's a valid endpoint
         static $methods = array(
             'anm',

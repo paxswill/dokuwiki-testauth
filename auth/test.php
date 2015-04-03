@@ -88,7 +88,7 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
         foreach ($response->groups as $group) {
             $groups[] = $group->name;
         }
-        $user_data['groups'] = $groups;
+        $user_data['grps'] = $groups;
         return $user_data;
     }
 

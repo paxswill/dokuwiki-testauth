@@ -82,7 +82,7 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
         $user_data = array();
         // FIXME Figure out how to get the primary character name without using
         // the login endpoint
-        $user_data['name'] = $response->username;
+        $user_data['name'] = $response->primary_character->name;
         $user_data['mail'] = $response->email;
         $groups = array();
         foreach ($response->groups as $group) {

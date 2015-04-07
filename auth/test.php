@@ -45,7 +45,6 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
      * @return  bool
      */
     public function checkPass($user, $pass) {
-        // TODO Report why things failed
         $hashed_password = hash('sha1', $pass);
         $params = array(
             'user' => $user,
@@ -80,11 +79,11 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
         // FIXME response validity isn't checked
         $response = $this->testAuthAPI('user', $params);
         $user_data = array();
-        // FIXME Figure out how to get the primary character name without using
-        // the login endpoint
         $user_data['name'] = $response->primary_character->name;
         $user_data['mail'] = $response->email;
-        $groups = array();
+        # Start with the user group to keep with the pattern that the default
+        # DokuWiki auth mechanism provides (@user for authenticated users).
+        $groups = array('user');
         foreach ($response->groups as $group) {
             $groups[] = $group->name;
         }

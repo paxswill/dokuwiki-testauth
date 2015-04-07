@@ -51,7 +51,9 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
             'pass' => $hashed_password
         );
         $response = $this->testAuthAPI('login', $params);
-        if ($response->auth != 'ok') {
+        if ($response['code'] != 200 || $response['json']->auth != 'ok') {
+            dbglog("Authentication for user $name failed." .
+                   " Reason: " . $response['error']);
             return false;
         } else {
             return true;
@@ -78,14 +80,21 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
         );
         // FIXME response validity isn't checked
         $response = $this->testAuthAPI('user', $params);
+        if ($response['code'] != 200) {
+            dbglog("User info lookup for user $user failed." .
+                   " Reason: " . $response['error']);
+            return false;
+        }
         $user_data = array();
-        $user_data['name'] = $response->primary_character->name;
-        $user_data['mail'] = $response->email;
+        $user_data['name'] = $response['json']->primary_character->name;
+        $user_data['mail'] = $response['json']->email;
         # Start with the user group to keep with the pattern that the default
         # DokuWiki auth mechanism provides (@user for authenticated users).
         $groups = array('user');
-        foreach ($response->groups as $group) {
-            $groups[] = $group->name;
+        if (property_exists($reponse['json'], 'groups')) {
+            foreach ($response['json']->groups as $group) {
+                $groups[] = $group->name;
+            }
         }
         $user_data['grps'] = $groups;
         return $user_data;
@@ -174,12 +183,18 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
         // Process the request
         $http_client = new DokuHTTPClient();
         $json_response = $http_client->dget($url, $params);
+        $response = array(
+            'code' => $http_client->status,
+            'body' => $http_client->resp_body,
+            'headers' => $http_client->resp_headers,
+        );
         if ($json_response == false) {
-            return false;
+            $response['error'] = $http_client->error;
+            return $response;
         }
         // the API returns JSON, so pre-process it
         $json = new JSON();
-        $response = $json->decode($json_response);
+        $response['json'] = $json->decode($json_response);
         return $response;
     }
 }

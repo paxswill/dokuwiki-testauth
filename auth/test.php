@@ -91,7 +91,7 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
         # Start with the user group to keep with the pattern that the default
         # DokuWiki auth mechanism provides (@user for authenticated users).
         $groups = array('user');
-        if (property_exists($reponse['json'], 'groups')) {
+        if (property_exists($response['json'], 'groups')) {
             foreach ($response['json']->groups as $group) {
                 $groups[] = $group->name;
             }

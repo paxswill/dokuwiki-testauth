@@ -86,7 +86,7 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
             return false;
         }
         $user_data = array();
-        $user_data['name'] = $response['json']->primary_character->name;
+        $user_data['name'] = $response['json']->primarycharacter->name;
         $user_data['mail'] = $response['json']->email;
         # Start with the user group to keep with the pattern that the default
         # DokuWiki auth mechanism provides (@user for authenticated users).

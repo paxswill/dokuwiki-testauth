@@ -51,10 +51,14 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
             'pass' => $hashed_password
         );
         $response = $this->testAuthAPI('login', $params);
-        if ($response['code'] != 200 || $response['json']->auth != 'ok') {
+        if ($response['code'] != 200) {
             dbglog("Authentication for user $name failed." .
+                   " [" . $response['code'] . "]" .
                    " Reason: " . $response['error']);
             return false;
+        } else if ($response['json']->auth != 'ok') {
+            dbglog("Authentication for user $name failed." .
+                   " Reason: " . $response['json']->error);
         } else {
             return true;
         }
@@ -82,6 +86,7 @@ class auth_plugin_testauth_test extends DokuWiki_Auth_Plugin {
         $response = $this->testAuthAPI('user', $params);
         if ($response['code'] != 200) {
             dbglog("User info lookup for user $user failed." .
+                   " [" . $response['code'] . "]" .
                    " Reason: " . $response['error']);
             return false;
         }
